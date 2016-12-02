@@ -2,37 +2,30 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var expect = require('expect');
 var $ = require('jQuery');
-var TestUtils = require ('react-addons-test-utils');
+var TestUtils = require('react-addons-test-utils');
 
-var Countdown = require ('Countdown');
+var Controls = require('Controls');
 
-
-describe ('Countdown', () => {
+describe('Controls', () => {
   it('should exist', () => {
-    expect(Countdown).toExist();
+    expect(Controls).toExist();
   });
 
-  describe ('handleSetCountdown', () => {
-    it('should set state to started and countdown', (done) => {
-      var countdown = TestUtils.renderIntoDocument(<Countdown/>);
-      countdown.handleSetCountdown(10);
-      expect(countdown.state.count).toBe(10);
-      expect(countdown.state.counddownStatus).toBe('started');
+  describe('render', () => {
+    it('should render pause when started', () => {
+      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus="started"/>);
+      var $el = $(ReactDOM.findDOMNode(controls));
+      var $pauseButton = $el.find('button:contains(Pause)');
 
-      setTimeout(() => {
-        expect(countdown.state.count).toBe(9);
-        done();
-      }, 1001);
-    });
-    it('should never set count less than zero', (done) => {
-      var countdown = TestUtils.renderIntoDocument(<Countdown/>);
-      countdown.handleSetCountdown(1);
-      setTimeout(() => {
-        expect(countdown.state.count).toBe(0);
-        done();
-      }, 3001);
+      expect($pauseButton.length).toBe(1);
     });
 
+    it('should render start when paused', () => {
+      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus="paused"/>);
+      var $el = $(ReactDOM.findDOMNode(controls));
+      var $pauseButton = $el.find('button:contains(Start)');
+
+      expect($pauseButton.length).toBe(1);
+    });
   });
-
 });

@@ -1,5 +1,4 @@
 var React = require('react');
-
 var ReactDOM = require('react-dom');
 var expect = require('expect');
 var $ = require('jQuery');
@@ -14,7 +13,7 @@ describe ('Controls', () => {
 
   describe ('render', () => {
     it('should render pause when started', () => {
-      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus='started'/>);
+      var controls = TestUtils.renderIntoDocument(<Controls controlsStatus='started'/>);
       var $el = $(ReactDOM.findDOMNode(controls));
       var $pauseButton = $el.find('button:contains(Pause)');
       expect($pauseButton.length).toBe(1);
@@ -22,7 +21,7 @@ describe ('Controls', () => {
     });
 
     it('should render Start when Paused', () => {
-      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus='paused'/>);
+      var controls = TestUtils.renderIntoDocument(<Controls controlsStatus='paused'/>);
       var $el = $(ReactDOM.findDOMNode(controls));
       var $startButton = $el.find('button:contains(Start)');
       expect($startButton.length).toBe(1);
